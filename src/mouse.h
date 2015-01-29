@@ -75,6 +75,8 @@ void clickMouse(MMMouseButton button);
 
 void scroll(char* direction);
 
+
+
 #endif /* MOUSE_H */
 
 #ifdef __cplusplus

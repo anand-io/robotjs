@@ -2,7 +2,7 @@
 #include "screen.h"
 #include "deadbeef_rand.h"
 #include "microsleep.h"
-
+#include "types.h"
 #include <math.h> /* For floor() */
 
 #if defined(IS_MACOSX)
@@ -149,6 +149,17 @@ else
 }
 
 
+}
+
+
+void Drag(size_t x,size_t y)
+{
+	MMPoint point;
+	CGPoint pt;
+	CGEventRef cgevent;
+    point = MMPointMake(x, y);
+    pt=CGPointFromMMPoint(point);
+	cgevent=CGEventCreateMouseEvent(NULL,kCGEventLeftMouseDragged,pt,kCGMouseButtonLeft);
 }
 
 /*

@@ -55,13 +55,13 @@ NAN_METHOD(mouseClick)
 
   char *type=*v8::String::Utf8Value(args[0]->ToString());
 
-   if(strcmp(type,"left"))
+   if(strcmp(type,"left")==0)
    {
      button=LEFT_BUTTON;
    }
    else
    {
-     if(strcmp(type,"right"))
+     if(strcmp(type,"right")==0)
      {
       button=RIGHT_BUTTON;
      }
@@ -89,6 +89,55 @@ NAN_METHOD(scroll)
   char *direction=*v8::String::Utf8Value(args[0]->ToString());
   scroll(direction);
   NanReturnValue(NanNew("1"));
+}
+
+NAN_METHOD(clickDown)
+{
+  NanScope();
+  MMMouseButton button;
+  char *type=*v8::String::Utf8Value(args[0]->ToString());
+
+   if(strcmp(type,"left")==0)
+   {
+     button=LEFT_BUTTON;
+   }
+   else
+   {
+     if(strcmp(type,"right")==0)
+     {
+      button=RIGHT_BUTTON;
+     }
+     else
+     {
+      button=LEFT_BUTTON;
+     }
+   }
+
+  toggleMouse(true, button);
+}
+
+NAN_METHOD(clickUp)
+{
+  NanScope();
+  MMMouseButton button;
+  char *type=*v8::String::Utf8Value(args[0]->ToString());
+
+   if(strcmp(type,"left")==0)
+   {
+     button=LEFT_BUTTON;
+   }
+   else
+   {
+     if(strcmp(type,"right")==0)
+     {
+      button=RIGHT_BUTTON;
+     }
+     else
+     {
+      button=LEFT_BUTTON;
+     }
+   }
+  toggleMouse(false, button);
 }
 /*
  _  __          _                         _ 
@@ -171,6 +220,10 @@ void init(Handle<Object> target)
   target->Set(NanNew<String>("typeString"),NanNew<FunctionTemplate>(typeString)->GetFunction());
 
   target->Set(NanNew<String>("scroll"),NanNew<FunctionTemplate>(scroll)->GetFunction());
+ 
+  target->Set(NanNew<String>("mouseDown"),NanNew<FunctionTemplate>(clickDown)->GetFunction());
+
+  target->Set(NanNew<String>("mouseUp"),NanNew<FunctionTemplate>(clickUp)->GetFunction());
 
   // target->Set(NanNew<String>("typeString"),
   //   NanNew<FunctionTemplate>(typeString)->GetFunction());
