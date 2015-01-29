@@ -124,11 +124,11 @@ void clickMouse(MMMouseButton button)
 	toggleMouse(false, button);
 }
 
-void scroll(char *direction)
+void scroll(char *direction,int power)
 {
-CGWheelCount wheelCount = 2; // 1 for Y-only, 2 for Y-X, 3 for Y-X-Z
+CGWheelCount wheelCount = 1*power; // 1 for Y-only, 2 for Y-X, 3 for Y-X-Z
 signed int xScroll = 1; // Negative for right
-signed int yScroll = 2; // Negative for down
+signed int yScroll = power; // Negative for down
 CGEventRef cgEvent;
 if(strcmp(direction,"up")==0)
 {
@@ -142,25 +142,16 @@ else
 	if(strcmp(direction,"down")==0)
 	{
 		xScroll=-1;
-		yScroll=-1;
+		yScroll=-1*power;
 		cgEvent = CGEventCreateScrollWheelEvent(NULL, kCGScrollEventUnitLine, wheelCount, yScroll, xScroll);
         CGEventPost(kCGHIDEventTap, cgEvent);
 	}
 }
 
-
 }
 
 
-void Drag(size_t x,size_t y)
-{
-	MMPoint point;
-	CGPoint pt;
-	CGEventRef cgevent;
-    point = MMPointMake(x, y);
-    pt=CGPointFromMMPoint(point);
-	cgevent=CGEventCreateMouseEvent(NULL,kCGEventLeftMouseDragged,pt,kCGMouseButtonLeft);
-}
+
 
 /*
  * A crude, fast hypot() approximation to get around the fact that hypot() is

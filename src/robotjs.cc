@@ -87,7 +87,8 @@ NAN_METHOD(scroll)
 {
   NanScope();
   char *direction=*v8::String::Utf8Value(args[0]->ToString());
-  scroll(direction);
+  int power=args[1]->Int32Value();
+  scroll(direction,power);
   NanReturnValue(NanNew("1"));
 }
 
