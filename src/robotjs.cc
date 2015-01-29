@@ -86,7 +86,8 @@ NAN_METHOD(mouseClick)
 NAN_METHOD(scroll)
 {
   NanScope();
-  scroll();
+  char *direction=*v8::String::Utf8Value(args[0]->ToString());
+  scroll(direction);
   NanReturnValue(NanNew("1"));
 }
 /*

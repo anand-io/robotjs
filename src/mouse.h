@@ -73,7 +73,7 @@ void toggleMouse(bool down, MMMouseButton button);
 /* Clicks the mouse with the given button in the current position. */
 void clickMouse(MMMouseButton button);
 
-void scroll();
+void scroll(char* direction);
 
 #endif /* MOUSE_H */
 

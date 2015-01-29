@@ -124,19 +124,31 @@ void clickMouse(MMMouseButton button)
 	toggleMouse(false, button);
 }
 
-void scroll()
+void scroll(char *direction)
+{
+CGWheelCount wheelCount = 2; // 1 for Y-only, 2 for Y-X, 3 for Y-X-Z
+signed int xScroll = 1; // Negative for right
+signed int yScroll = 2; // Negative for down
+CGEventRef cgEvent;
+if(strcmp(direction,"up")==0)
 {
 
-CGWheelCount wheelCount = 2; // 1 for Y-only, 2 for Y-X, 3 for Y-X-Z
-int32_t xScroll = 1; // Negative for right
-int32_t yScroll = 2; // Negative for down
-CGEventRef cgEvent = CGEventCreateScrollWheelEvent(NULL, kCGScrollEventUnitLine, wheelCount, yScroll, xScroll);
-
-// You can post the CGEvent to the event stream to have it automatically sent to the window under the cursor
+cgEvent = CGEventCreateScrollWheelEvent(NULL, kCGScrollEventUnitLine, wheelCount, yScroll, xScroll);
 CGEventPost(kCGHIDEventTap, cgEvent);
 
-// NSEvent *theEvent = [NSEvent eventWithCGEvent:cgEvent];
-// CFRelease(cgEvent);
+}
+else
+{
+	if(strcmp(direction,"down")==0)
+	{
+		xScroll=-1;
+		yScroll=-1;
+		cgEvent = CGEventCreateScrollWheelEvent(NULL, kCGScrollEventUnitLine, wheelCount, yScroll, xScroll);
+        CGEventPost(kCGHIDEventTap, cgEvent);
+	}
+}
+
+
 }
 
 /*
