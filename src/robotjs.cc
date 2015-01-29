@@ -5,7 +5,7 @@
 #include "mouse.h"
 #include "deadbeef_rand.h"
 #include "keypress.h"
-
+#include <unistd.h>
 using namespace v8;
 
 /*
@@ -51,7 +51,25 @@ NAN_METHOD(mouseClick)
 {
   NanScope();
 
-  MMMouseButton button = LEFT_BUTTON;
+   MMMouseButton button;
+
+  char *type=*v8::String::Utf8Value(args[0]->ToString());
+
+   if(strcmp(type,"left"))
+   {
+     button=LEFT_BUTTON;
+   }
+   else
+   {
+     if(strcmp(type,"right"))
+     {
+      button=RIGHT_BUTTON;
+     }
+     else
+     {
+      button=LEFT_BUTTON;
+     }
+   }
 
   clickMouse(button);
 
@@ -94,6 +112,22 @@ NAN_METHOD (keyTap)
   NanReturnValue(NanNew("1"));
 }
 
+//print the list of charecters
+NAN_METHOD(typeString)
+{
+   NanScope();
+   MMKeyFlags flags= MOD_NONE;
+
+   char *c=*v8::String::Utf8Value(args[0]->ToString());
+   size_t i=0;
+
+   for(i=0;i<strlen(c);i++)
+   {
+     tapKey(c[i],flags);
+     usleep(2000);
+   }
+}
+
 // Handle<Value> typeString(const Arguments& args) 
 // {
 //   HandleScope scope;
@@ -119,6 +153,8 @@ void init(Handle<Object> target)
 
   target->Set(NanNew<String>("keyTap"),
     NanNew<FunctionTemplate>(keyTap)->GetFunction());
+
+  target->Set(NanNew<String>("typeString"),NanNew<FunctionTemplate>(typeString)->GetFunction());
 
   // target->Set(NanNew<String>("typeString"),
   //   NanNew<FunctionTemplate>(typeString)->GetFunction());
