@@ -124,6 +124,21 @@ void clickMouse(MMMouseButton button)
 	toggleMouse(false, button);
 }
 
+void scroll()
+{
+
+CGWheelCount wheelCount = 2; // 1 for Y-only, 2 for Y-X, 3 for Y-X-Z
+int32_t xScroll = 1; // Negative for right
+int32_t yScroll = 2; // Negative for down
+CGEventRef cgEvent = CGEventCreateScrollWheelEvent(NULL, kCGScrollEventUnitLine, wheelCount, yScroll, xScroll);
+
+// You can post the CGEvent to the event stream to have it automatically sent to the window under the cursor
+CGEventPost(kCGHIDEventTap, cgEvent);
+
+// NSEvent *theEvent = [NSEvent eventWithCGEvent:cgEvent];
+// CFRelease(cgEvent);
+}
+
 /*
  * A crude, fast hypot() approximation to get around the fact that hypot() is
  * not a standard ANSI C function.

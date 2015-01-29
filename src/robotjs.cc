@@ -76,6 +76,19 @@ NAN_METHOD(mouseClick)
   NanReturnValue(NanNew("1"));
 }
 
+// NAN_METHOD(drag)
+// {
+//   NanScope();
+//   MMPoint pos=getMousePos();
+//   NanReturnValue(NanNew<Number>(pos.x));
+// }
+
+NAN_METHOD(scroll)
+{
+  NanScope();
+  scroll();
+  NanReturnValue(NanNew("1"));
+}
 /*
  _  __          _                         _ 
 | |/ /___ _   _| |__   ___   __ _ _ __ __| |
@@ -155,6 +168,8 @@ void init(Handle<Object> target)
     NanNew<FunctionTemplate>(keyTap)->GetFunction());
 
   target->Set(NanNew<String>("typeString"),NanNew<FunctionTemplate>(typeString)->GetFunction());
+
+  target->Set(NanNew<String>("scroll"),NanNew<FunctionTemplate>(scroll)->GetFunction());
 
   // target->Set(NanNew<String>("typeString"),
   //   NanNew<FunctionTemplate>(typeString)->GetFunction());
