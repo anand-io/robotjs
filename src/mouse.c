@@ -126,28 +126,16 @@ void clickMouse(MMMouseButton button)
 
 void scroll(char *direction,int power)
 {
-CGWheelCount wheelCount = 1*power; // 1 for Y-only, 2 for Y-X, 3 for Y-X-Z
-signed int xScroll = 1; // Negative for right
-signed int yScroll = power; // Negative for down
-CGEventRef cgEvent;
-if(strcmp(direction,"up")==0)
-{
-
-cgEvent = CGEventCreateScrollWheelEvent(NULL, kCGScrollEventUnitLine, wheelCount, yScroll, xScroll);
-CGEventPost(kCGHIDEventTap, cgEvent);
-
-}
-else
-{
-	if(strcmp(direction,"down")==0)
-	{
-		xScroll=-1;
-		yScroll=-1*power;
-		cgEvent = CGEventCreateScrollWheelEvent(NULL, kCGScrollEventUnitLine, wheelCount, yScroll, xScroll);
-        CGEventPost(kCGHIDEventTap, cgEvent);
+	CGWheelCount wheelCount = 1 * power; // 1 for Y-only, 2 for Y-X, 3 for Y-X-Z
+	signed int xScroll = -1; // Negative for right
+	signed int yScroll = -1 * power; // Negative for down
+	CGEventRef cgEvent;
+	if(strcmp(direction,"up") == 0) {
+		xScroll = 1;
+		yScroll = 1 * power;
 	}
-}
-
+	cgEvent = CGEventCreateScrollWheelEvent(NULL, kCGScrollEventUnitLine, wheelCount, yScroll, xScroll);
+	CGEventPost(kCGHIDEventTap, cgEvent);
 }
 
 
