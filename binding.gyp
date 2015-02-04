@@ -22,6 +22,10 @@
 	                            ]
 	                        }
 	            }
+	          ],
+	          ['OS=="linux",{
+	             "libraries":['-lX11']
+	          }
 	          ]
 	        ],
 	      "sources": ["src/robotjs.cc", "src/deadbeef_rand.c", "src/mouse.c", "src/keypress.c" , "src/keycode.c"]

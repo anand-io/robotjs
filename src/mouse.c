@@ -126,7 +126,7 @@ void clickMouse(MMMouseButton button)
 
 void scroll(char *direction,int power)
 {
-	#if defined(IS_MACOSX)
+	#if defined(__APPLE__)
 		CGWheelCount wheelCount = 1 * power; // 1 for Y-only, 2 for Y-X, 3 for Y-X-Z
 		signed int xScroll = -1; // Negative for right
 		signed int yScroll = -1 * power; // Negative for down
