@@ -128,12 +128,20 @@ void scroll(char *direction,int power)
 {
 	#if defined(IS_MACOSX)
 		CGWheelCount wheelCount = 1 * power; // 1 for Y-only, 2 for Y-X, 3 for Y-X-Z
-		signed int xScroll = -1; // Negative for right
-		signed int yScroll = -1 * power; // Negative for down
+		 signed int xScroll = 0; 
+		 signed int yScroll = 0;
 		CGEventRef cgEvent;
+		//leaving a joint for left and right scroll.
 		if(strcmp(direction,"up") == 0) {
 			xScroll = 1;
 			yScroll = 1 * power;
+		}
+		else{
+			if(strcmp(direction,"down")==0)
+			{
+				xScroll=-1;
+				yScroll=-1*power;
+			}
 		}
 		cgEvent = CGEventCreateScrollWheelEvent(NULL, kCGScrollEventUnitLine, wheelCount, yScroll, xScroll);
 		CGEventPost(kCGHIDEventTap, cgEvent);
