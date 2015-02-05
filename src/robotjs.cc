@@ -250,6 +250,9 @@ void init(Handle<Object> target)
   target->Set(NanNew<String>("mouseClick"),
     NanNew<FunctionTemplate>(mouseClick)->GetFunction());
 
+  target->Set(NanNew<String>("doubleMouseClick"),
+    NanNew<FunctionTemplate>(doubleMouseClick)->GetFunction());
+
   target->Set(NanNew<String>("keyTap"),
     NanNew<FunctionTemplate>(keyTap)->GetFunction());
 
