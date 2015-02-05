@@ -118,6 +118,33 @@ void toggleMouse(bool down, MMMouseButton button)
 #endif
 }
 
+void doubleClick(bool down, MMMouseButton button)
+{
+#if defined(IS_MACOSX)
+	const CGPoint currentPos = CGPointFromMMPoint(getMousePos());
+	const CGEventType mouseType = MMMouseToCGEventType(down, button);
+	CGEventRef event = CGEventCreateMouseEvent(NULL,
+	                                           mouseType,
+	                                           currentPos,
+	                                           (CGMouseButton)button);
+	CGEventSetIntegerValueField(event, kCGMouseEventClickState, 2);  
+	CGEventPost(kCGSessionEventTap, event);
+	CGEventSetType(event, kCGEventLeftMouseUp);  
+    CGEventPost(kCGHIDEventTap, event);  
+    CGEventSetType(event, kCGEventLeftMouseDown);  
+    CGEventPost(kCGHIDEventTap, event);  
+    CGEventSetType(event, kCGEventLeftMouseUp); 
+    CGEventPost(kCGHIDEventTap, event); 
+	CFRelease(event);
+#elif defined(USE_X11)
+	// Display *display = XGetMainDisplay();
+	// XTestFakeButtonEvent(display, button, down ? True : False, CurrentTime);
+	XFlush(display);
+#elif defined(IS_WINDOWS)
+	// mouse_event(MMMouseToMEventF(down, button), 0, 0, 0, 0);
+#endif
+}
+
 void clickMouse(MMMouseButton button)
 {
 	toggleMouse(true, button);

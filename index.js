@@ -1,4 +1,5 @@
 var driver = require('./build/Release/robotjs.node');
+var clickedOnce = false;
 
 var mouse = {};
 
@@ -9,7 +10,12 @@ mouse.click = function(type, callback) {
     } else {
         switch (type) {
             case 'left':
-                driver.mouseClick('left');
+            	if(!clickedOnce)
+                	driver.mouseClick('left');
+                else
+                	driver.doubleMouseClick('left');
+            	clickedOnce = true;
+            	setTimeout(function(){clickedOnce = false;},700);
                 if (callback) callback();
                 break;
             case 'right':

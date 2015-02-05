@@ -76,6 +76,23 @@ NAN_METHOD(mouseClick)
   NanReturnValue(NanNew("1"));
 }
 
+NAN_METHOD(doubleMouseClick) 
+{
+  NanScope();
+
+   MMMouseButton button;
+
+  char *type=*v8::String::Utf8Value(args[0]->ToString());
+
+   if(strcmp(type,"left")==0)
+   {
+     button=LEFT_BUTTON;
+     doubleClick(button);
+   }
+
+  NanReturnValue(NanNew("1"));
+}
+
 // NAN_METHOD(drag)
 // {
 //   NanScope();
