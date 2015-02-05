@@ -244,7 +244,7 @@ void init(Handle<Object> target)
 
   target->Set(NanNew<String>("mouseUp"),NanNew<FunctionTemplate>(clickUp)->GetFunction());
 
-  target->Set<NanNew<String>("moveMouseSmooth"),NanNew<FunctionTemplate>(moveMouseSmooth)->GetFunction());
+  target->Set(NanNew<String>("moveMouseSmooth"),NanNew<FunctionTemplate>(moveMouseSmooth)->GetFunction());
 
   // target->Set(NanNew<String>("typeString"),
   //   NanNew<FunctionTemplate>(typeString)->GetFunction());
