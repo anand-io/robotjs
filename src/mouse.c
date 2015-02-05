@@ -118,11 +118,11 @@ void toggleMouse(bool down, MMMouseButton button)
 #endif
 }
 
-void doubleClick(bool down, MMMouseButton button)
+void doubleClick(MMMouseButton button)
 {
 #if defined(IS_MACOSX)
 	const CGPoint currentPos = CGPointFromMMPoint(getMousePos());
-	const CGEventType mouseType = MMMouseToCGEventType(down, button);
+	const CGEventType mouseType = MMMouseToCGEventType(true, button);
 	CGEventRef event = CGEventCreateMouseEvent(NULL,
 	                                           mouseType,
 	                                           currentPos,
