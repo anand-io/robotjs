@@ -125,7 +125,7 @@ NAN_METHOD(scroll)
   NanReturnValue(NanNew("1"));
 }
 
-NAN_METHOD(mouseDown)
+NAN_METHOD(mouseHold)
 {
   NanScope();
   MMMouseButton button;
@@ -150,7 +150,7 @@ NAN_METHOD(mouseDown)
   toggleMouse(true, button);
 }
 
-NAN_METHOD(mouseUp)
+NAN_METHOD(mouseRelease)
 {
   NanScope();
   MMMouseButton button;
@@ -260,9 +260,9 @@ void init(Handle<Object> target)
 
   target->Set(NanNew<String>("scroll"),NanNew<FunctionTemplate>(scroll)->GetFunction());
  
-  target->Set(NanNew<String>("mouseDown"),NanNew<FunctionTemplate>(clickDown)->GetFunction());
+  target->Set(NanNew<String>("mouseDown"),NanNew<FunctionTemplate>(mouseHold)->GetFunction());
 
-  target->Set(NanNew<String>("mouseUp"),NanNew<FunctionTemplate>(clickUp)->GetFunction());
+  target->Set(NanNew<String>("mouseUp"),NanNew<FunctionTemplate>(mouseRelease)->GetFunction());
 
   target->Set(NanNew<String>("moveMouseSmooth"),NanNew<FunctionTemplate>(moveMouseSmooth)->GetFunction());
 
