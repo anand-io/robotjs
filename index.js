@@ -55,7 +55,12 @@ mouse.mouseUp = driver.mouseUp;
 mouse.onmousedown = function(type, callback) {
 
     if (typeof type == 'string') {
-        mouse.mouseDown(type);
+    	if(!clickedOnce || type === 'right')
+        	mouse.mouseDown(type);
+        else
+        	driver.doubleMouseClick(type);
+    	clickedOnce = true;
+    	setTimeout(function(){clickedOnce = false;},700);
         if (callback) callback();
     } else {
         mouse.mouseDown();
