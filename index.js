@@ -10,12 +10,13 @@ mouse.click = function(type, callback) {
     } else {
         switch (type) {
             case 'left':
-            	if(!clickedOnce)
+            	if(!clickedOnce){
                 	driver.mouseClick('left');
+                    clickedOnce = true;
+                    setTimeout(function(){clickedOnce = false;},700);
+                }
                 else
                 	driver.doubleMouseClick('left');
-            	clickedOnce = true;
-            	setTimeout(function(){clickedOnce = false;},700);
                 if (callback) callback();
                 break;
             case 'right':
@@ -52,15 +53,17 @@ mouse.typeString = function(str) {
 mouse.mouseDown = driver.mouseDown;
 mouse.mouseUp = driver.mouseUp;
 
-mouse.onmousedown = function(type, callback) {
+mouse.mouseHold = function(type, callback) {
 
     if (typeof type == 'string') {
-    	if(!clickedOnce || type === 'right')
+    	if(!clickedOnce || type === 'right'){
+            clickedOnce = true;
+            setTimeout(function(){clickedOnce = false;},700);
         	mouse.mouseDown(type);
+        }
         else
         	driver.doubleMouseClick(type);
-    	clickedOnce = true;
-    	setTimeout(function(){clickedOnce = false;},700);
+    	
         if (callback) callback();
     } else {
         mouse.mouseDown();
@@ -69,7 +72,7 @@ mouse.onmousedown = function(type, callback) {
     }
 };
 
-mouse.onmouseup = function(type, callback) {
+mouse.mouseRelease = function(type, callback) {
 
     if (typeof type == 'string') {
         mouse.mouseUp(type);

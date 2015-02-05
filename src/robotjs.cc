@@ -125,7 +125,7 @@ NAN_METHOD(scroll)
   NanReturnValue(NanNew("1"));
 }
 
-NAN_METHOD(clickDown)
+NAN_METHOD(mouseDown)
 {
   NanScope();
   MMMouseButton button;
@@ -150,7 +150,7 @@ NAN_METHOD(clickDown)
   toggleMouse(true, button);
 }
 
-NAN_METHOD(clickUp)
+NAN_METHOD(mouseUp)
 {
   NanScope();
   MMMouseButton button;
