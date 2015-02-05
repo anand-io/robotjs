@@ -83,6 +83,22 @@ NAN_METHOD(mouseClick)
 //   NanReturnValue(NanNew<Number>(pos.x));
 // }
 
+NAN_METHOD(moveMouseSmooth) 
+{
+  NanScope();
+  if (args.Length() < 2) 
+  {
+    return NanThrowError("Invalid number of arguments."); 
+  }
+  size_t x = args[0]->Int32Value();
+  size_t y = args[1]->Int32Value();
+
+  MMPoint point;
+  point = MMPointMake(x, y);
+  smoothlyMoveMouse(point);
+  NanReturnValue(NanNew("1"));
+}
+
 NAN_METHOD(scroll)
 {
   NanScope();
@@ -140,6 +156,8 @@ NAN_METHOD(clickUp)
    }
   toggleMouse(false, button);
 }
+
+
 /*
  _  __          _                         _ 
 | |/ /___ _   _| |__   ___   __ _ _ __ __| |
@@ -225,6 +243,8 @@ void init(Handle<Object> target)
   target->Set(NanNew<String>("mouseDown"),NanNew<FunctionTemplate>(clickDown)->GetFunction());
 
   target->Set(NanNew<String>("mouseUp"),NanNew<FunctionTemplate>(clickUp)->GetFunction());
+
+  target->Set<NanNew<String>("moveMouseSmooth"),NanNew<FunctionTemplate>(moveMouseSmooth)->GetFunction());
 
   // target->Set(NanNew<String>("typeString"),
   //   NanNew<FunctionTemplate>(typeString)->GetFunction());

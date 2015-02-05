@@ -22,9 +22,15 @@
 	                            ]
 	                        }
 	            }
-	          ]
+	          ],
+			   ['OS=="win"', {
+				'libraries': [
+					'gdi32',
+					'user32'
+				]
+				}]
 	        ],
-	      "sources": ["src/robotjs.cc", "src/deadbeef_rand.c", "src/mouse.c", "src/keypress.c" , "src/keycode.c"]
+	      "sources": ["src/robotjs.cc", "src/deadbeef_rand.c", "src/mouse.c", "src/keypress.c" , "src/keycode.c", "src/screen.c", "src/screengrab.c", "src/MMBitmap.c", "src/snprintf.c"]
     }
   ]
 }
