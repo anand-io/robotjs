@@ -87,6 +87,7 @@ mouse.onmousedown=function(type,callback)
  } 
 
 mouse.scroll=driver.scroll;
+mouse.moveMouseSmooth=driver.moveMouseSmooth;
 
 mouse.DragTo=function(x,y,flag)
 {
