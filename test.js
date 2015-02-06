@@ -12,3 +12,5 @@ var robot  = require('../robotjs');
 robot.click('left');
 robot.click('left');
 
+
+robot.clickwithCount("left",3);

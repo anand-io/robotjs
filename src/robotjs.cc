@@ -174,7 +174,30 @@ NAN_METHOD(mouseRelease)
   toggleMouse(false, button);
 }
 
+NAN_METHOD(clickwithCount)
+{
+  NanScope();
+  MMMouseButton button;
+  char *type=*v8::String::Utf8Value(args[0]->ToString());
+  int count=args[1]->Int32Value();
 
+   if(strcmp(type,"left")==0)
+   {
+     button=LEFT_BUTTON;
+   }
+   else
+   {
+     if(strcmp(type,"right")==0)
+     {
+      button=RIGHT_BUTTON;
+     }
+     else
+     {
+      button=LEFT_BUTTON;
+     }
+   }
+  ClickWithCount(button,count);
+}
 /*
  _  __          _                         _ 
 | |/ /___ _   _| |__   ___   __ _ _ __ __| |
@@ -265,6 +288,8 @@ void init(Handle<Object> target)
   target->Set(NanNew<String>("mouseUp"),NanNew<FunctionTemplate>(mouseRelease)->GetFunction());
 
   target->Set(NanNew<String>("moveMouseSmooth"),NanNew<FunctionTemplate>(moveMouseSmooth)->GetFunction());
+
+  target->Set(NanNew<String>("clickwithCount"),NanNew<FunctionTemplate>(clickwithCount)->GetFunction());
 
   // target->Set(NanNew<String>("typeString"),
   //   NanNew<FunctionTemplate>(typeString)->GetFunction());

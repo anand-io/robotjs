@@ -75,6 +75,7 @@ void clickMouse(MMMouseButton button);
 
 void doubleClick(MMMouseButton button);
 
+void ClickWithCount(MMMouseButton button,int count);
 
 void scroll(char* direction,int power);
 

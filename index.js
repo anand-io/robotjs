@@ -86,7 +86,7 @@ mouse.mouseRelease = function(type, callback) {
 
 mouse.scroll = driver.scroll;
 mouse.moveMouseSmooth = driver.moveMouseSmooth;
-
+mouse.clickWithCounts=driver.clickwithCount;
 mouse.DragTo = function(x, y, flag) {
 
 };

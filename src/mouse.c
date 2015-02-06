@@ -145,6 +145,27 @@ void doubleClick(MMMouseButton button)
 #endif
 }
 
+void ClickWithCount(MMMouseButton button,int clickCount)
+{
+	#if defined(__APPLE__)
+	const CGPoint currentPos = CGPointFromMMPoint(getMousePos());
+	const CGEventType mouseType=MMMouseToCGEventType(true,button);
+	CGEventRef theEvent = CGEventCreateMouseEvent(NULL,
+	                                           mouseType,
+	                                           currentPos,
+	                                           (CGMouseButton)button); //casting to get the type of mouse button.
+    CGEventSetIntegerValueField(theEvent, kCGMouseEventClickState, clickCount);  
+    CGEventPost(kCGHIDEventTap, theEvent);  
+    CGEventSetType(theEvent, kCGEventLeftMouseUp);  
+    CGEventPost(kCGHIDEventTap, theEvent);  
+    CGEventSetType(theEvent, kCGEventLeftMouseDown);  
+    CGEventPost(kCGHIDEventTap, theEvent);  
+    CGEventSetType(theEvent, kCGEventLeftMouseUp); 
+    CGEventPost(kCGHIDEventTap, theEvent); 
+    CFRelease(theEvent);
+    #endif
+}
+
 void clickMouse(MMMouseButton button)
 {
 	toggleMouse(true, button);
